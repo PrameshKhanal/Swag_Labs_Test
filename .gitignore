@@ -18,3 +18,5 @@
 **/*.html
 **/.DS_Store
 **/*.pyc
+# local folders to ignore
+results/
