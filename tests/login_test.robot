@@ -3,9 +3,11 @@ Documentation            Robot Framework tests to verify the features of the Swa
 
 Library                  Browser
 Library                  String
+Library                  Collections
 
 Resource                 ../resources/browser_login.resource
 Resource                 ../resources/manage_screenshots.resource
+Resource                 ../resources/sorting_test.resource
 
 Suite Setup              browser_login.Web page should open successfully    ${URL}
 Suite Teardown           Browser.Close Browser    browser=ALL
@@ -61,5 +63,20 @@ Login test using available usernames/passwords
             manage_screenshots.Take full page screenshot    invalid_login
         END
     END
-    
-*** Keywords ***
+
+Verify Low to high price sorting
+    [Documentation]                                         This test will login using the exisiting username and password. From the main product page, 
+    ...                                                     this test will verify that the low to high sorting option will sort the items correctly.
+    ...                                                     After the sorting is performed, this test will take the screenshot as evidence.
+    [Tags]                                                  low2high
+    Browser.Type Text                                       id=user-name    standard_user
+    Browser.Type Text                                       id=password     secret_sauce
+    Browser.Click                                           id=login-button
+    Browser.Wait For Elements State                         css=select.product_sort_container    visible    timeout=5s
+    ${mylist}    sorting_test.Get Price List                css=div.inventory_item_price
+    Collections.Sort List    ${mylist}
+    Log    ${mylist}
+    Browser.Select Options By                               css=select.product_sort_container    text       Price (low to high)
+    ${sortedlist}    sorting_test.Get Price List            css=div.inventory_item_price
+    Collections.Lists Should Be Equal    list1=${mylist}    list2=${sortedlist}    values=True    ignore_order=False
+    manage_screenshots.Take full page screenshot            filename=page_sorted

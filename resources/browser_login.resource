@@ -9,7 +9,7 @@ Web page should open successfully
     [Documentation]                    Test to verify that the webpage can be opened and the heading is displayed correctly.
     [Arguments]                        ${URL}
     ...                                ${browser}=chromium    
-    ...                                ${headless}=False    
+    ...                                ${headless}=True    
     ...                                ${viewport}={'width': 1920, 'height': 1080}
     Browser.New Browser                browser=${browser}              headless=${headless}
     Browser.New Context                viewport=${viewport}
