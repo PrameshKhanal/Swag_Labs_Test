@@ -5,9 +5,9 @@ Library                  Browser
 Library                  String
 Library                  Collections
 
-Resource                 ../resources/browser_login.resource
-Resource                 ../resources/manage_screenshots.resource
-Resource                 ../resources/sorting_test.resource
+Resource                 browser_login.resource
+Resource                 manage_screenshots.resource
+Resource                 sorting_test.resource
 
 Suite Setup              browser_login.Web page should open successfully    ${URL}
 Suite Teardown           Browser.Close Browser    browser=ALL
