@@ -19,9 +19,10 @@ ${URL}                   https://www.saucedemo.com/
 
 *** Test Cases ***
 Login test should succeed
-    login_test.Login button should exist
-    login_test.Error message should be visible for empty username & password
-    login_test.Login test using available usernames/passwords
+    login_test.Verify Login button
+    login_test.Verify Empty Credentials Login
+    login_test.Verify Valid Credentials Login
 
 Sorting test should succeed
-    sorting_test.Verify Low to high price sorting
+    sorting_test.Verify Low To High Sorting
+    sorting_test.Verify High To Low Sorting

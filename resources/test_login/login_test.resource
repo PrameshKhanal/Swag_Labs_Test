@@ -5,7 +5,13 @@ Library            String
 Resource           suite_management${/}manage_screenshots.resource
 
 *** Keywords ***
-Login button should exist
+Login With Standard User
+    Browser.Type Text                                       id=user-name    standard_user
+    Browser.Type Text                                       id=password     secret_sauce
+    Browser.Click                                           id=login-button
+    Browser.Wait For Elements State                         css=select.product_sort_container    visible    timeout=5s
+
+Verify Login button
     [Documentation]                                         This test case will verify that the Login button is not disabled and after verification,
     ...                                                     this test case will take the screenshot of the Login button.
     [Tags]                                                  loginButtonTest
@@ -15,7 +21,7 @@ Login button should exist
     ...                                                     assertion_expected=${None}
     manage_screenshots.Take selector Screenshot             login_test    id=login-button
 
-Error message should be visible for empty username & password
+Verify Empty Credentials Login
     [Documentation]                                         This test will verify that the error message will be displayed if empty username and password
     ...                                                     is provided and login button is selected.
     [Tags]                                                  errorMsgTest
@@ -25,7 +31,7 @@ Error message should be visible for empty username & password
     Browser.Get Element States                              xpath=//*[@id="login_button_container"]/div/form/div[3]/h3/text()    ==    detached
     manage_screenshots.Take full page screenshot            swaglablogin
 
-Login test using available usernames/passwords
+Verify Valid Credentials Login
     [Documentation]                                         This test will verify that only certain users can login using the username and password
     ...                                                     provided in the webpage. If the user cannot login, test will take screenshot of the login
     ...                                                     screen where the error message is highlighted.
